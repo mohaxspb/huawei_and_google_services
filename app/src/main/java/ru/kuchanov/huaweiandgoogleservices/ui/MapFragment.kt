@@ -57,7 +57,11 @@ class MapFragment : Fragment() {
     }
 
     private fun onMapReady(map: SomeMap) {
-        map.setUiSettings(isMapToolbarEnabled = false, isCompassEnabled = false)
+        map.setUiSettings(
+            isMapToolbarEnabled = false,
+            isCompassEnabled = false,
+            isMyLocationButtonEnabled = true
+        )
 
         locationButton.setOnClickListener {
             locationGateway.requestLastLocation()
