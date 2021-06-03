@@ -1,5 +1,6 @@
 package ru.kuchanov.huaweiandgoogleservices.location
 
+import io.reactivex.Flowable
 import io.reactivex.Single
 import ru.kuchanov.huaweiandgoogleservices.domain.Location
 
@@ -10,4 +11,6 @@ interface FusedLocationClient {
     fun getLastLocation(): Single<Location>
 
     fun requestLastLocation(): Single<Location>
+
+    fun getLocationUpdates(): Flowable<Location>
 }
