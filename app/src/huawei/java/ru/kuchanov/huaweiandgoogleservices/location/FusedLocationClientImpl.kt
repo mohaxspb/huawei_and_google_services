@@ -3,20 +3,16 @@ package ru.kuchanov.huaweiandgoogleservices.location
 import android.Manifest.permission.*
 import android.content.Context
 import android.os.Build
-import com.huawei.agconnect.config.AGConnectServicesConfig
-import com.huawei.hms.aaid.HmsInstanceId
 import com.huawei.hms.location.LocationCallback
 import com.huawei.hms.location.LocationRequest
 import com.huawei.hms.location.LocationResult
 import com.huawei.hms.location.LocationServices
-import com.huawei.hms.push.HmsMessaging
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.Single
 import ru.kuchanov.huaweiandgoogleservices.domain.Location
 import ru.kuchanov.huaweiandgoogleservices.domain.UnknownLocationException
 import ru.kuchanov.huaweiandgoogleservices.system.PermissionsHelper
-import timber.log.Timber
 
 class FusedLocationClientImpl(
     private val permissionsHelper: PermissionsHelper,
