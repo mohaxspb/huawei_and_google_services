@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Huawei and Google Services</string>
+    <string name="open_map">Open map</string>
+    <string name="get_location">Get location</string>
+    <string name="send_analytics_event">Send analytics event</string>
+    <string name="get_location_updates">Get location updates</string>
+    <string name="update_remote_config">Update remote config</string>
 </resources>
