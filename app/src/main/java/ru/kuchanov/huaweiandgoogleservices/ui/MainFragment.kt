@@ -16,6 +16,7 @@ import ru.kuchanov.huaweiandgoogleservices.analytics.Analytics
 import ru.kuchanov.huaweiandgoogleservices.analytics.EventOpenMainScreen
 import ru.kuchanov.huaweiandgoogleservices.analytics.EventOpenMapScreen
 import ru.kuchanov.huaweiandgoogleservices.location.LocationGateway
+import timber.log.Timber
 
 class MainFragment : Fragment() {
 
@@ -24,23 +25,30 @@ class MainFragment : Fragment() {
     private val analytics: Analytics by inject()
     private val locationGateway: LocationGateway by inject()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        textView.setOnClickListener { analytics.send(EventOpenMainScreen()) }
+        sendEventButton.setOnClickListener { analytics.send(EventOpenMainScreen()) }
 
         locationButton.setOnClickListener {
             locationGateway
                 .requestLastLocation()
                 .subscribeBy(
-                    onSuccess = { Snackbar.make(root, "Location: $it", Snackbar.LENGTH_SHORT).show() },
+                    onSuccess = {
+                        Snackbar.make(root, "Location: $it", Snackbar.LENGTH_SHORT).show()
+                    },
                     onError = {
                         it.printStackTrace()
-                        Snackbar.make(root, "Location error: ${it.message}", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(root, "Location error: ${it.message}", Snackbar.LENGTH_SHORT)
+                            .show()
                     }
                 )
                 .addTo(compositeDisposable)
