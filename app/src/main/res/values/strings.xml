@@ -5,4 +5,5 @@
     <string name="send_analytics_event">Send analytics event</string>
     <string name="get_location_updates">Get location updates</string>
     <string name="update_remote_config">Update remote config</string>
+    <string name="get_push_token">Get push token</string>
 </resources>

@@ -9,10 +9,10 @@
         android:id="@+id/sendEventButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
         android:background="?selectableItemBackground"
         android:padding="16dp"
         android:text="@string/send_analytics_event"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -54,6 +54,18 @@
         app:layout_constraintTop_toBottomOf="@id/locationButton" />
 
     <Button
+        android:id="@+id/getPushTokenButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="?selectableItemBackground"
+        android:padding="16dp"
+        android:text="@string/get_push_token"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/locationUpdatesButton" />
+
+    <Button
         android:id="@+id/openMapButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,5 +75,5 @@
         android:text="@string/open_map"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/locationUpdatesButton" />
+        app:layout_constraintTop_toBottomOf="@id/getPushTokenButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

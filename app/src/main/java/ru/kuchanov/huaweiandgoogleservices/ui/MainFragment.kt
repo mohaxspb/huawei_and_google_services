@@ -6,11 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import com.huawei.agconnect.config.AGConnectServicesConfig
 import com.huawei.agconnect.remoteconfig.AGConnectConfig
+import com.huawei.hms.aaid.HmsInstanceId
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import ru.kuchanov.huaweiandgoogleservices.R
 import ru.kuchanov.huaweiandgoogleservices.analytics.Analytics
@@ -101,6 +106,21 @@ class MainFragment : Fragment() {
                 .addOnFailureListener {
                     Timber.e(it)
                 }
+        }
+
+        getPushTokenButton.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val appId =
+                        AGConnectServicesConfig.fromContext(context).getString("client/app_id")
+                    val token = HmsInstanceId.getInstance(context).getToken(appId, "HCM")
+                    if (token.isEmpty().not()) {
+                        Timber.i("obtainToken() token: $token")
+                    }
+                } catch (e: Exception) {
+                    Timber.e("obtainToken() failed, $e")
+                }
+            }
         }
     }
 
