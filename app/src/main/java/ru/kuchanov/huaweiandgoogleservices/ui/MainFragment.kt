@@ -55,6 +55,25 @@ class MainFragment : Fragment() {
                 .addTo(compositeDisposable)
         }
 
+        locationUpdatesButton.setOnClickListener {
+            locationGateway
+                .requestLocationUpdates()
+                .subscribeBy(
+                    onNext = {
+                        Snackbar
+                            .make(root, "Location: $it", Snackbar.LENGTH_SHORT)
+                            .show()
+                    },
+                    onError = {
+                        it.printStackTrace()
+                        Snackbar
+                            .make(root, "Location error: ${it.message}", Snackbar.LENGTH_SHORT)
+                            .show()
+                    }
+                )
+                .addTo(compositeDisposable)
+        }
+
         openMapButton.setOnClickListener {
             activity
                 ?.supportFragmentManager
