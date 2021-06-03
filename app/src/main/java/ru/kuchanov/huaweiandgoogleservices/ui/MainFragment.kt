@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import com.huawei.agconnect.remoteconfig.AGConnectConfig
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
@@ -63,6 +64,24 @@ class MainFragment : Fragment() {
                 ?.commit()
 
             analytics.send(EventOpenMapScreen())
+        }
+
+        val testParam = "test_param"
+        val config = AGConnectConfig.getInstance()
+        config.clearAll()
+        config.applyDefault(mapOf(testParam to "test_value_default"))
+        Timber.d("config testParam: ${config.getValueAsString(testParam)}")
+        remoteConfigUpdateButton.setOnClickListener {
+            config.fetch()
+                .addOnSuccessListener {
+                    Timber.d("config testParam: ${it.getValueAsString(testParam)}")
+                    Timber.d("config testParam: ${config.getValueAsString(testParam)}")
+                    config.apply(it)
+                    Timber.d("config testParam: ${config.getValueAsString(testParam)}")
+                }
+                .addOnFailureListener {
+                    Timber.e(it)
+                }
         }
     }
 
