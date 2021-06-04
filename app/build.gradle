@@ -18,6 +18,24 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            signingConfigs {
+                debug {
+                    // Load keystore
+                    if (rootProject.file('debug.keystore').exists()) {
+                        def keystorePropertiesFile = rootProject.file("debug.keystore")
+
+                        storeFile keystorePropertiesFile
+                        storePassword 'android'
+                        keyAlias 'androiddebugkey'
+                        keyPassword 'android'
+                    }
+                }
+            }
+
+            signingConfig signingConfigs.debug
+        }
     }
 
     sourceSets {
