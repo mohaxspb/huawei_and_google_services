@@ -1,9 +1,11 @@
 package ru.kuchanov.huaweiandgoogleservices.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.huawei.agconnect.config.AGConnectServicesConfig
@@ -22,6 +24,7 @@ import ru.kuchanov.huaweiandgoogleservices.analytics.Analytics
 import ru.kuchanov.huaweiandgoogleservices.analytics.EventOpenMainScreen
 import ru.kuchanov.huaweiandgoogleservices.analytics.EventOpenMapScreen
 import ru.kuchanov.huaweiandgoogleservices.location.LocationGateway
+import ru.kuchanov.huaweiandgoogleservices.location.LocationUpdatesForegroundService
 import timber.log.Timber
 
 class MainFragment : Fragment() {
@@ -70,13 +73,15 @@ class MainFragment : Fragment() {
                             .show()
                     },
                     onError = {
-                        it.printStackTrace()
                         Snackbar
                             .make(root, "Location error: ${it.message}", Snackbar.LENGTH_SHORT)
                             .show()
                     }
                 )
                 .addTo(compositeDisposable)
+
+            val serviceIntent = Intent(context, LocationUpdatesForegroundService::class.java)
+            ContextCompat.startForegroundService(requireContext(), serviceIntent)
         }
 
         openMapButton.setOnClickListener {
